@@ -1,5 +1,6 @@
+import React, { useState } from 'react';
 import PostCard from './components/PostCard/index'
-import { checkCoordinatesDistance } from './utils/checkCoordinatesDistance';
+import { checkCoordinatesDistance, getUserCoordinates } from './utils/checkCoordinatesDistance';
 
 // Task 1: Form the photo/video layout based on the available resources from `props.data.resources` (Refer notion link)
 
@@ -9,23 +10,33 @@ import { checkCoordinatesDistance } from './utils/checkCoordinatesDistance';
 // 3. Supply both the latitude and longitude to checkCoordinatesDistance() util function to get the distance in kilometers
 
 // These are hardcoded coordinates of Jaipur and Lucknow.
-const lat1 = 26.9124; // replace with user latitude
-const lon1 = 75.7873; // replace with user longitude
-const lat2 = 26.8467; // replace with post latitude
-const lon2 = 80.9462; // replace with post longitude
-export default function Post(props){
-    const distance = checkCoordinatesDistance(lat1,lon1,lat2,lon2);
+// const lat1 = 26.9124; // replace with user latitude
+// const lon1 = 75.7873; // replace with user longitude
+// const lat2 = 26.8467; // replace with post latitude
+// const lon2 = 80.9462; // replace with post longitude
+export default function Post(props) {
+    const [lat1, setLat1] = useState(null);
+    const [lon1, setLon1] = useState(null);
+
+    /** Settig up callback to respond with location is loaded */
+    getUserCoordinates(({ lat1, lon1 }) => {
+        setLat1(lat1);
+        setLon1(lon1);
+    });
+
+    const [lat2, lon2] = JSON.parse(props?.data?.location)?.coordinates;
+    const distance = lat1 === null || lon1 === null ? null : checkCoordinatesDistance(lat1, lon1, lat2, lon2);
     const milk = props.data.highestMilk ? props.data.highestMilk : props.data.currentMilk;
     const tel = `tel:${props.data.contact}`;
     return (
         <PostCard>
             <PostCard.Resources>
-                <PostCard.Image src={JSON.parse(props.data.resources[0]).url} resource={JSON.parse(props.data.resources[0])}/>
+                <PostCard.Image src={JSON.parse(props.data.resources[0]).url} resource={JSON.parse(props.data.resources[0])} />
             </PostCard.Resources>
             <PostCard.Group>
-                <PostCard.Date>
-                    <span className = "bolded">{`${parseInt(distance)} KM`}</span> from your location
-                </PostCard.Date>
+                {distance ? <PostCard.Date>
+                    <span className="bolded">{`${parseInt(distance)} KM`}</span> from your location
+                </PostCard.Date> : <span>...</span>}
                 <PostCard.Location>
                     {props.data.locationName.split(',')[0]}, {props.data.locationName.split(',')[1]}
                 </PostCard.Location>

@@ -50,7 +50,7 @@ export const Group = styled.div`
     margin: 0 auto;
     align-items:center;
     width: 100%;
-    padding-top: ${({padding}) => padding || 0}px;
+    padding-top: ${({ padding }) => padding || 0}px;
 `;
 
 export const Price = styled.div`

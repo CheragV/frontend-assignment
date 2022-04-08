@@ -1,6 +1,6 @@
-export function checkCoordinatesDistance(lat1,lon1,lat2,lon2){
+export function checkCoordinatesDistance(lat1, lon1, lat2, lon2) {
     console.log('DISTANCE CHECK: ', lat1, lon1, lat2, lon2);
-    let dLat,dLon,a,c,d;
+    let dLat, dLon, a, c, d;
     if (lat2 && lon2) {
         const R = 6371; // Radius of the earth in km
 
@@ -11,4 +11,13 @@ export function checkCoordinatesDistance(lat1,lon1,lat2,lon2){
         d = R * c; // Distance in km
     }
     return d;
+}
+
+
+export const getUserCoordinates = async (cb) => {
+    let coordinates = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej));
+    cb({
+        lat1: coordinates.coords.longitude,
+        lon1: coordinates.coords.latitude,
+    });
 }
