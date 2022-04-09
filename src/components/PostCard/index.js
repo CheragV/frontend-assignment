@@ -9,7 +9,9 @@ import {
     PostDescription,
     PostHeading,
     Price,
-    Resources
+    Resources,
+    ImageGroup,
+    ImageContainer
 } from './styles/post';
 
 export default function PostCard({ children, ...restProps }) {
@@ -24,9 +26,18 @@ PostCard.Resources = function PostCardResources({ children, ...restProps }) {
     return <Resources {...restProps}>{children}</Resources>
 }
 
+PostCard.ImageContainer = function PostCardImageContainer({ children, resource, ...restProps }) {
+    return <ImageContainer {...restProps}>{children}</ImageContainer>
+}
+
+PostCard.ImageGroup = function PostCardImageGroup({ children, resource, ...restProps }) {
+    return <ImageGroup {...restProps}>{children}</ImageGroup>
+}
+
 PostCard.Image = function PostCardImage({ children, resource, ...restProps }) {
     return <Image {...restProps} loading="lazy" alt="..." >{children}</Image>
 }
+
 PostCard.PostDescription = function PostCardPostDescription({ children, ...restProps }) {
     return <PostDescription {...restProps}>{children}</PostDescription>
 }

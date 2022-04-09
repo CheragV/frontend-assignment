@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PostCard from './components/PostCard/index'
-import { checkCoordinatesDistance, getUserCoordinates } from './utils/checkCoordinatesDistance';
+import { checkCoordinatesDistance, getUserCoordinates, getImageDimensions } from './utils';
 
 // Task 1: Form the photo/video layout based on the available resources from `props.data.resources` (Refer notion link)
 
@@ -18,20 +18,33 @@ export default function Post(props) {
     const [lat1, setLat1] = useState(null);
     const [lon1, setLon1] = useState(null);
 
-    /** Settig up callback to respond with location is loaded */
-    getUserCoordinates(({ lat1, lon1 }) => {
-        setLat1(lat1);
-        setLon1(lon1);
-    });
+    useEffect(() => {
+        /** Setting up callback to respond when location is loaded */
+        getUserCoordinates(({ lat1, lon1 }) => {
+            setLat1(lat1);
+            setLon1(lon1);
+        });
+    }, []);
 
     const [lat2, lon2] = JSON.parse(props?.data?.location)?.coordinates;
     const distance = lat1 === null || lon1 === null ? null : checkCoordinatesDistance(lat1, lon1, lat2, lon2);
     const milk = props.data.highestMilk ? props.data.highestMilk : props.data.currentMilk;
     const tel = `tel:${props.data.contact}`;
+
+    const imageResources = props.data.resources.slice(0, 4); // excluding cases where we might have more than 4 images
+
     return (
         <PostCard>
             <PostCard.Resources>
-                <PostCard.Image src={JSON.parse(props.data.resources[0]).url} resource={JSON.parse(props.data.resources[0])} />
+                <PostCard.ImageGroup>
+                    {
+                        imageResources.map((image, index) => (
+                            <PostCard.ImageContainer {...getImageDimensions(imageResources, index)}>
+                                <PostCard.Image src={JSON.parse(props.data.resources[0]).url} resource={JSON.parse(image)} />
+                            </PostCard.ImageContainer>
+                        ))
+                    }
+                </PostCard.ImageGroup>
             </PostCard.Resources>
             <PostCard.Group>
                 {distance ? <PostCard.Date>

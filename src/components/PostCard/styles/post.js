@@ -27,8 +27,19 @@ export const Container = styled.div`
 export const Resources = styled.div`
     height: 150px;
     width: 100%;
-    background: #eee;
     margin-bottom: 10px;
+`;
+
+export const ImageGroup = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    width:100%;
+`;
+
+export const ImageContainer = styled.div`
+    height: ${props => props.height}%;
+    width:${props => props.width}%;
 `;
 
 export const Image = styled.img`
