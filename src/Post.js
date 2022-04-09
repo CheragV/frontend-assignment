@@ -2,18 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PostCard from './components/PostCard/index'
 import { checkCoordinatesDistance, getUserCoordinates, getImageDimensions } from './utils';
 
-// Task 1: Form the photo/video layout based on the available resources from `props.data.resources` (Refer notion link)
-
-// Task 2: Show the distance of the post from the user’s location
-// 1. Create a custom hook to find user's location (ask for GPS permission)
-// 2. Coordinates of each post is available in the `props.data.location` (Format:- coordinates:[longitude, latitude])
-// 3. Supply both the latitude and longitude to checkCoordinatesDistance() util function to get the distance in kilometers
-
-// These are hardcoded coordinates of Jaipur and Lucknow.
-// const lat1 = 26.9124; // replace with user latitude
-// const lon1 = 75.7873; // replace with user longitude
-// const lat2 = 26.8467; // replace with post latitude
-// const lon2 = 80.9462; // replace with post longitude
 export default function Post(props) {
     const [lat1, setLat1] = useState(null);
     const [lon1, setLon1] = useState(null);
@@ -39,7 +27,7 @@ export default function Post(props) {
                 <PostCard.ImageGroup>
                     {
                         imageResources.map((image, index) => (
-                            <PostCard.ImageContainer {...getImageDimensions(imageResources, index)}>
+                            <PostCard.ImageContainer {...getImageDimensions(imageResources, index)} key={JSON.parse(image).url}>
                                 <PostCard.Image src={JSON.parse(image).url} resource={JSON.parse(image).url} />
                             </PostCard.ImageContainer>
                         ))

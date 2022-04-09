@@ -51,7 +51,7 @@ PostCard.CallButtonImage = function PostCardCallButtonImage({ children, ...restP
     return <CallButtonImage {...restProps}>{children}</CallButtonImage>
 }
 PostCard.CallButton = function PostCardCallButton({ children, src, ...restProps }) {
-    return <CallButton {...restProps}><CallButtonImage src={src} /></CallButton>
+    return <CallButton {...restProps} target="_blank" rel="noopener noreferrer" aria-label='Call'><CallButtonImage src={src} alt="Call" /></CallButton>
 }
 PostCard.Date = function PostCardDate({ children, ...restProps }) {
     return <Date {...restProps}>{children}</Date>

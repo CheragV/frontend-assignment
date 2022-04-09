@@ -71,7 +71,7 @@ export const Group = styled.div`
 export const Price = styled.div`
     font-size: 12px;
     font-weight: 700;
-    color: #1BA398;
+    color: #14857A;
     flex-basis:30%;
     display: flex;
     justify-content: center;
