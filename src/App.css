@@ -23,9 +23,11 @@
 
 .holder{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
-  margin: 50px 0;
+  margin: 50px auto;
+  max-width: 660px;
+  flex-wrap: wrap;
 }
 
 .App-link {

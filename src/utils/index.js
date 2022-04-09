@@ -16,6 +16,7 @@ export function checkCoordinatesDistance(lat1, lon1, lat2, lon2) {
 
 export const getUserCoordinates = async (cb) => {
     if (!navigator.geolocation) {
+        console.log('Browser does not have gps permission!')
         cb({
             lat1: null,
             lon1: null,

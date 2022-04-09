@@ -40,12 +40,16 @@ export const ImageGroup = styled.div`
 export const ImageContainer = styled.div`
     height: ${props => props.height}%;
     width:${props => props.width}%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 `;
 
 export const Image = styled.img`
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+    border-radius: 4px;
 `;
 
 export const PostDescription = styled.div`

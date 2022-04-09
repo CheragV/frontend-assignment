@@ -40,7 +40,7 @@ export default function Post(props) {
                     {
                         imageResources.map((image, index) => (
                             <PostCard.ImageContainer {...getImageDimensions(imageResources, index)}>
-                                <PostCard.Image src={JSON.parse(props.data.resources[0]).url} resource={JSON.parse(image)} />
+                                <PostCard.Image src={JSON.parse(image).url} resource={JSON.parse(image).url} />
                             </PostCard.ImageContainer>
                         ))
                     }
